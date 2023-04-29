@@ -1,24 +1,22 @@
 package com.yelloelefant.exampleplugin.commands;
 
 import com.yelloelefant.exampleplugin.ExamplePlugin;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationOptions;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
 public class Commands implements CommandExecutor {
     public Location prevLocation;
-    public ExamplePlugin ex = new ExamplePlugin();
+    public ExamplePlugin MainPlugin = ExamplePlugin.getInstance();
     public HashMap<String, Location> homes = new HashMap<String, Location>();
     public HashMap<String, Location> backs = new HashMap<String, Location>();
 
@@ -26,7 +24,7 @@ public class Commands implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command cmd, @NotNull String label,
             @NotNull String[] args) {
 
-        FileConfiguration config = ex.getConfig();
+        FileConfiguration config = MainPlugin.getConfig();
 
         String playerName = Sender.getName();
         if (!(Sender instanceof Player)) {
@@ -72,7 +70,7 @@ public class Commands implements CommandExecutor {
 
             config.addDefault(playerName + "-home", home);
             config.options().copyDefaults(true);
-            ex.saveConfig();
+            MainPlugin.saveConfig();
             player.sendMessage("home set at: " + locationString);
             System.out.println(playerName + " set home to:" + locationString);
 
@@ -84,7 +82,7 @@ public class Commands implements CommandExecutor {
     }
 
     public void setLocations() {
-        FileConfiguration config = ex.getConfig();
+        FileConfiguration config = MainPlugin.getConfig();
         OfflinePlayer[] players = Bukkit.getOfflinePlayers();
         for (OfflinePlayer offlinePlayer : players) {
             String playerName = offlinePlayer.getName();

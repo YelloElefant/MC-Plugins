@@ -1,0 +1,19 @@
+name: examplePlugin
+version: '${project.version}'
+main: com.yelloelefant.exampleplugin.ExamplePlugin
+api-version: 1.19
+authors: [YelloElefant]
+description: my first plugin
+commands:
+  home:
+    description: tp to home
+    usage: /<command>
+    aliases: [HOME]
+  back:
+    description: tp back to prev location
+    usage: /<command>
+    aliases: [BACK]
+  setHome:
+    description: set home location
+    usage: /<command>
+    aliases: [SETHOME]
